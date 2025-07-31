@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Groupes de garçons</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Groupes de garçons</h1>
+      <iframe
+        id="videoFrame"
+        width="560"
+        height="315"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <br /><br />
+
+      <button onclick="loadRandomVideo()">Une autre !</button>
+    </div>
+
+    <script type="module">
+      import { DATABASE } from "./boysband.js";
+
+      function getYouTubeEmbedUrl(yt) {
+        return `https://www.youtube.com/embed/${yt}`;
+      }
+
+      function loadRandomVideo() {
+        const randomIndex = Math.floor(Math.random() * DATABASE.length);
+        const randomVideo = DATABASE[randomIndex];
+        const embedUrl = getYouTubeEmbedUrl(randomVideo.yt);
+        document.getElementById("videoFrame").src = embedUrl;
+      }
+
+      loadRandomVideo();
+      window.loadRandomVideo = loadRandomVideo;
+    </script>
+  </body>
+</html>
